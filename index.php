@@ -64,27 +64,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['cropImage'])) {
                     imagepng($croppedImage, $croppedPath);
                     imagedestroy($croppedImage);
 
-                    $msgCrop .= "<div class='alert alert-success container rounded-0 shadow'>
-                                <h3 class='fs-5'>Zugeschnittenes Bild:</h3>
-                                <img src='$croppedPath' alt='Zugeschnittenes Bild' class='img-fluid'><br>
-                                <p class='my-2'>Bild erfolgreich zugeschnitten!</p>
-                                <a href='$croppedPath' download class='btn btn-primary fw-semibold'>
-                                    <i class='bi bi-download'></i>
-                                    Bild herunterladen
-                                </a>
-                            </div>";
+                    $msgCrop .= "<div class='alert alert-success container shadow'>
+                                    <h3 class='fs-5'>Zugeschnittenes Bild:</h3>
+                                    <img src='$croppedPath' alt='Zugeschnittenes Bild' class='img-fluid'><br>
+                                    <p class='my-2'>Bild erfolgreich zugeschnitten!</p>
+                                    <a href='$croppedPath' download class='btn btn-primary fw-semibold'>
+                                        <i class='bi bi-download'></i>
+                                        Bild herunterladen
+                                    </a>
+                                </div>";
                 } else {
-                    $msgCrop .= "<div class='alert alert-danger container rounded-0 shadow'>
-                                Bild konnte nicht zugeschnitten werden. Bitte geben Sie gültige Werte ein, die innerhalb der zulässigen Grenzen sind.
-                            </div>";
+                    $msgCrop .= "<div class='alert alert-danger container shadow'>
+                                    Bild konnte nicht zugeschnitten werden. Bitte geben Sie gültige Werte ein, die innerhalb der zulässigen Grenzen sind.
+                                </div>";
                 }
 
                 imagedestroy($image);
             }
         } else {
-            $msgCrop = "<div class='alert alert-danger container rounded-0 shadow'>
-                        Ungültiges Dateiformat. Erlaubt sind nur JPEG, PNG, WebP, GIF und BMP Dateien.
-                    </div>";
+            $msgCrop = "<div class='alert alert-danger container shadow'>
+                            Ungültiges Dateiformat. Erlaubt sind nur JPEG, PNG, WebP, GIF und BMP Dateien.
+                        </div>";
         }
     }
 }
@@ -119,13 +119,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['scaleImage'])) {
             }
         }
 
-        $msgScale .= "<div class='alert alert-success container rounded-0 shadow'>
-                    Bild wurde erfolgreich skaliert!<br>
-                    <a href='download.php?unique_id=" . urlencode($uniqueId) . "&original_name=" . urlencode($originalName) . "&edit_type=" . urlencode($editType) . "' class='btn btn-primary fw-semibold mt-2'>
-                        <i class='bi bi-download'></i>
-                        Bilder herunterladen
-                    </a>
-                </div>";
+        $msgScale .= "<div class='alert alert-success container shadow'>
+                        Bild wurde erfolgreich skaliert!<br>
+                        <a href='download.php?unique_id=" . urlencode($uniqueId) . "&original_name=" . urlencode($originalName) . "&edit_type=" . urlencode($editType) . "' class='btn btn-primary fw-semibold mt-2'>
+                            <i class='bi bi-download'></i>
+                            Bilder herunterladen
+                        </a>
+                    </div>";
     }
 }
 
@@ -176,35 +176,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['webpConvert'])) {
                     imagedestroy($image);
                 }
             } else {
-                $msgwebpConvert .= "<div class='alert alert-danger container rounded-0 shadow'>
-                            Ungültiges Dateiformat. Erlaubt sind nur JPEG, PNG, WebP, GIF und BMP Dateien.
-                        </div>";
+                $msgwebpConvert .= "<div class='alert alert-danger container shadow'>
+                                        Ungültiges Dateiformat. Erlaubt sind nur JPEG, PNG, WebP, GIF und BMP Dateien.
+                                    </div>";
             }
         }
 
         if (count($_FILES['webpConvert']['name']) === 1) {
-            $msgwebpConvert .= "<div class='alert alert-success container rounded-0 shadow'>
-                        Bild wurde erfolgreich konvertiert!<br>
-                        <a href='$outputPath' download class='btn btn-primary fw-semibold mt-2'>
-                            <i class='bi bi-download'></i>
-                            Bild herunterladen
-                        </a>
-                    </div>";
+            $msgwebpConvert .= "<div class='alert alert-success container shadow'>
+                                    Bild wurde erfolgreich konvertiert!<br>
+                                    <a href='$outputPath' download class='btn btn-primary fw-semibold mt-2'>
+                                        <i class='bi bi-download'></i>
+                                        Bild herunterladen
+                                    </a>
+                                </div>";
         }
 
         if (count($_FILES['webpConvert']['name']) > 1) {
-            $msgwebpConvert .= "<div class='alert alert-success container rounded-0 shadow'>
-                        Bilder wurden erfolgreich konvertiert!<br>
-                        <a href='download.php?unique_id=" . urlencode($uniqueId) . "&original_name=" . urlencode($originalName) . "&edit_type=" . urlencode($editType) . "' class='btn btn-primary fw-semibold mt-2'>
-                            <i class='bi bi-download'></i>
-                            Bilder herunterladen
-                        </a>
-                    </div>";
+            $msgwebpConvert .= "<div class='alert alert-success container shadow'>
+                                    Bilder wurden erfolgreich konvertiert!<br>
+                                    <a href='download.php?unique_id=" . urlencode($uniqueId) . "&original_name=" . urlencode($originalName) . "&edit_type=" . urlencode($editType) . "' class='btn btn-primary fw-semibold mt-2'>
+                                        <i class='bi bi-download'></i>
+                                        Bilder herunterladen
+                                    </a>
+                                </div>";
         }
     } else {
-        $msgwebpConvert .= "<div class='alert alert-danger container rounded-0 shadow'>
-                    Bitte wählen Sie mindestens ein Bild aus.
-                </div>";
+        $msgwebpConvert .= "<div class='alert alert-danger container shadow'>
+                                Bitte wählen Sie mindestens ein Bild aus.
+                            </div>";
     }
 }
 ?>
