@@ -366,7 +366,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['webpConvert'])) {
     </main>
 
     <footer class="bg-body-secondary border py-3">
-        <div class="container text-center d-flex justify-content-between align-items-center">
+        <div class="container d-flex justify-content-between align-items-center">
             <p class="mb-0 fw-bold"><i class="bi bi-c-circle text-secondary me-1"></i>2025 <a href="https://andreas-lesovsky-web.dev/" class="text-body">Andreas Lesovsky</a></p>
             <ul class="social-links fs-4 d-flex gap-3 mb-0">
                 <li>
