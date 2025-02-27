@@ -1,5 +1,5 @@
 <?php
-$dir = '/usr/www/users/andreaa/web-image-optimizer/bilder/';
+$dir = '/web-image-optimizer/bilder/';
 $maxAge = 3600;
 
 // Überprüfen, ob das Verzeichnis existiert
