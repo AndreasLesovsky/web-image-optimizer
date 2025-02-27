@@ -97,18 +97,53 @@ document.querySelectorAll(".file-input").forEach(input => {
         const preview = previewContainer.querySelector(".image-preview");
         const fileNameContainer = previewContainer.querySelector(".image-name");
 
+        // Container für die Fehlermeldung
+        const errorContainerFileSize = form.querySelector(".alert-danger-max-file-size");
+        const errorContainerMaxFileUploads = form.querySelector(".alert-danger-max-file-uploads");
+        const submitButton = form.querySelector('button[type="submit"]');
+
         fileNameContainer.textContent = '';
         fileNameContainer.innerHTML = '';
 
+        let totalSize = 0;
+
+        // Funktion zum Formatieren der Dateigröße in MB
+        const formatFileSize = (size) => {
+            if (size >= 1024 * 1024) {
+                return (size / (1024 * 1024)).toFixed(2) + ' MB';
+            } else if (size >= 1024) {
+                return (size / 1024).toFixed(2) + ' KB';
+            } else {
+                return size + ' Bytes';
+            }
+        };
+
+        // Überprüfe, ob mehr als 20 Dateien ausgewählt wurden
+        if (files.length > 20) {
+            errorContainerMaxFileUploads.classList.remove("visually-hidden");
+            submitButton.disabled = true;
+        } else {
+            errorContainerMaxFileUploads.classList.add("visually-hidden");
+            submitButton.disabled = false;
+        }
+
+        // Wenn mehr als ein Bild hochgeladen wird
         if (files.length > 1) {
             preview.style.display = "none";
 
             const ul = document.createElement('ol');
             fileNameContainer.appendChild(ul);
 
+            const sizeParagraph = document.createElement('p');
+            sizeParagraph.classList.add('total-size-paragraph');
+            fileNameContainer.insertBefore(sizeParagraph, ul); // Platziere den Paragraphen über der Liste
+
             Array.from(files).forEach(file => {
+                totalSize += file.size;
+
                 const listItem = document.createElement('li');
                 const fileNameText = file.name;
+                const fileSizeText = formatFileSize(file.size);
                 const reader = new FileReader();
 
                 reader.onload = function (e) {
@@ -116,8 +151,10 @@ document.querySelectorAll(".file-input").forEach(input => {
                     img.onload = function () {
                         const width = img.width;
                         const height = img.height;
-                        listItem.textContent = `${fileNameText} (${width}x${height}px)`;
+                        listItem.textContent = `${fileNameText} (${width}x${height}px, ${fileSizeText})`;
                         ul.appendChild(listItem);
+
+                        sizeParagraph.textContent = `Gesamtgröße: ${formatFileSize(totalSize)}`;
                     };
                     img.src = e.target.result;
                 };
@@ -126,7 +163,10 @@ document.querySelectorAll(".file-input").forEach(input => {
             });
         } else if (files.length === 1) {
             const file = files[0];
+            totalSize += file.size;
+
             const fileNameText = file.name;
+            const fileSizeText = formatFileSize(file.size);
             const reader = new FileReader();
 
             reader.onload = function (e) {
@@ -137,7 +177,7 @@ document.querySelectorAll(".file-input").forEach(input => {
                 img.onload = function () {
                     const width = img.width;
                     const height = img.height;
-                    fileNameContainer.textContent = `${fileNameText} (${width}x${height}px)`;
+                    fileNameContainer.textContent = `${fileNameText} (${width}x${height}px, ${fileSizeText})`;
                 };
                 img.src = e.target.result;
             };
@@ -146,6 +186,20 @@ document.querySelectorAll(".file-input").forEach(input => {
         } else {
             fileNameContainer.textContent = "Keine Datei ausgewählt";
             preview.style.display = "none";
+        }
+
+        // Überprüfe die Gesamtgröße der Dateien
+        if (totalSize > 50 * 1024 * 1024) {  // 50MB
+            errorContainerFileSize.classList.remove("visually-hidden");
+            submitButton.disabled = true;
+        } else {
+            errorContainerFileSize.classList.add("visually-hidden");
+            submitButton.disabled = false;
+        }
+
+        // Wenn eine der Bedingungen für maximale Dateigröße oder Anzahl überschritten ist, verhindere das Absenden des Formulars
+        if (totalSize > 50 * 1024 * 1024 || files.length > 20) {
+            event.preventDefault();
         }
     });
 });
@@ -162,6 +216,16 @@ document.querySelectorAll(".clear-button").forEach(button => {
         if (previewContainer) {
             previewContainer.querySelector(".image-preview").style.display = "none";
             previewContainer.querySelector(".image-name").textContent = "Keine Datei ausgewählt";
+        }
+
+        // Fehlernachrichten ausblenden
+        const errorContainerFileSize = form.querySelector(".alert-danger-max-file-size");
+        const errorContainerMaxFileUploads = form.querySelector(".alert-danger-max-file-uploads");
+        if (errorContainerFileSize) {
+            errorContainerFileSize.classList.add("visually-hidden");
+        }
+        if (errorContainerMaxFileUploads) {
+            errorContainerMaxFileUploads.classList.add("visually-hidden");
         }
     });
 });

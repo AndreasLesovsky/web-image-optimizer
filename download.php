@@ -4,7 +4,7 @@ if (isset($_GET['unique_id']) && isset($_GET['original_name']) && isset($_GET['e
     $originalName = basename($_GET['original_name']);
     $editType = $_GET['edit_type'];
 
-    // Switch-Anweisung zur Bestimmung des Verzeichnispfads und des ZIP-Dateinamens je nachdem ob der User skaliert oder konvertiert hat
+    // Bestimmen des Verzeichnispfads und des ZIP-Dateinamens je nachdem, ob der User skaliert oder konvertiert hat
     switch ($editType) {
         case 'scale':
             $dir = "./bilder/$uniqueId/{$originalName}_scaled_sizes";
@@ -17,35 +17,39 @@ if (isset($_GET['unique_id']) && isset($_GET['original_name']) && isset($_GET['e
             break;
 
         default:
-            // Standardverzeichnis oder Fehlerbehandlung, falls der Typ unbekannt ist
             echo "Ungültiger Bearbeitungstyp!";
             exit;
     }
 
-    // Prüfe, ob das Verzeichnis existiert
     if (is_dir($dir)) {
-        // Erstelle ein neues ZipArchive-Objekt
         $zip = new ZipArchive();
 
-        // Öffne das Zip-Archiv zur Erstellung im temporären Verzeichnis
+        // Temporäre Datei zum Erstellen des ZIP-Archivs
         $tempZipFile = tempnam(sys_get_temp_dir(), 'zip');
         if ($zip->open($tempZipFile, ZipArchive::CREATE) !== TRUE) {
             exit("ZIP-Archiv konnte nicht erstellt werden.");
         }
 
-        // Iteriere durch alle Dateien im Verzeichnis und füge sie zum ZIP-Archiv hinzu
+        // Dateien im Verzeichnis durchlaufen und zum ZIP-Archiv hinzufügen
         $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir), RecursiveIteratorIterator::LEAVES_ONLY);
 
         foreach ($files as $file) {
             if (!$file->isDir()) {
                 $filePath = $file->getRealPath();
-                $relativePath = substr($filePath, strlen($dir) + 1);
+
+                if ($editType == 'scale') {
+                    $relativePath = substr($filePath, strpos($filePath, "{$originalName}_scaled_sizes"));
+                } else {
+                    $relativePath = basename($filePath);
+                }
+
                 $zip->addFile($filePath, $relativePath);
             }
         }
 
         $zip->close();
 
+        // ZIP-Datei zum Download vorbereiten
         header('Content-Type: application/zip');
         header('Content-Disposition: attachment; filename="' . $zipFileName . '"');
         header('Content-Length: ' . filesize($tempZipFile));

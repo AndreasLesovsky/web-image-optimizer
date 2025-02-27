@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['cropImage'])) {
                     imagedestroy($croppedImage);
 
                     $msgCrop .= "<div class='alert alert-success container shadow'>
-                                    <h3 class='fs-5'>Zugeschnittenes Bild:</h3>
+                                    <h3 class='fs-4'>Zugeschnittenes Bild:</h3>
                                     <img src='$croppedPath' alt='Zugeschnittenes Bild' class='img-fluid'><br>
                                     <p class='my-2'>Bild erfolgreich zugeschnitten!</p>
                                     <a href='$croppedPath' download class='btn btn-primary fw-semibold'>
@@ -216,13 +216,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['webpConvert'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebImageOptimizer</title>
     <link rel="stylesheet" href="css/custom-bootstrap.css">
+    <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/style.css">
-    <link href="node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="icon" type="image/svg" href="assets/icon.svg">
 </head>
 
 <body>
-    <header class="shadow py-4">
+    <header class="bg-body-secondary shadow py-4">
         <div class="container d-flex flex-column flex-lg-row justify-content-between align-items-center flex-wrap gap-2">
             <h1 class="fs-2 fw-bold lh-1 text-dark text-nowrap rounded-1 bg-secondary px-3 py-2 mb-0 col-12 col-lg-auto">
                 <i class="bi bi-images"></i>
@@ -261,11 +262,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['webpConvert'])) {
                 <div class="text-primary-emphasis bg-primary-subtle border border-primary-subtle container shadow p-3 mb-3 image-preview-container">
                     <h3 class="fs-4">Hochgeladen:</h3>
                     <img class="image-preview img-fluid" src="" alt="Image Preview" style="display:none;">
-                    <div class="image-name">Keine Datei ausgewählt</div>
+                    <div class="image-name">Keine Datei ausgewählt.</div>
+                </div>
+                <div class="alert alert-danger container alert-danger-max-file-size visually-hidden">
+                    Die Größe des Uploads überschreitet die maximal zulässige Grenze von 50MB.
+                </div>
+                <div class="alert alert-warning container alert-danger-max-file-uploads visually-hidden">
+                    Bitte maximal 20 Dateien auswählen.
                 </div>
                 <div class="container border bg-body-tertiary shadow p-3">
                     <div class="mb-3">
-                        <label for="cropImage" class="form-label">Bild zum Zuschneiden:</label>
+                        <label for="cropImage" class="form-label">Bild zum Zuschneiden (maximal 50 MB):</label>
                         <div class="input-group">
                             <input type="file" class="form-control file-input" name="cropImage" accept="image/jpeg, image/png, image/webp, image/gif, image/bmp" required>
                             <button type="button" title="Auswahl löschen" class="btn btn-danger clear-button"><i class="bi bi-trash3"></i></button>
@@ -274,19 +281,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['webpConvert'])) {
                     <div class="row">
                         <div class="col-md-6 col-lg-3 mb-3">
                             <label class="form-label mb-0"><i class="bi bi-arrow-bar-right me-2"></i>Von links wegschneiden</label>
-                            <input type="number" name="left" class="form-control" placeholder="px">
+                            <input type="number" name="left" class="form-control" placeholder="px" aria-label="Von links wegschneiden">
                         </div>
                         <div class="col-md-6 col-lg-3 mb-3">
                             <label class="form-label mb-0"><i class="bi bi-arrow-bar-down me-2"></i>Von oben wegschneiden</label>
-                            <input type="number" name="top" class="form-control" placeholder="px">
+                            <input type="number" name="top" class="form-control" placeholder="px" aria-label="Von oben wegschneiden">
                         </div>
                         <div class="col-md-6 col-lg-3 mb-3">
                             <label class="form-label mb-0"><i class="bi bi-arrow-bar-left me-2"></i>Von rechts wegschneiden</label>
-                            <input type="number" name="right" class="form-control" placeholder="px">
+                            <input type="number" name="right" class="form-control" placeholder="px" aria-label="Von rechts wegschneiden">
                         </div>
                         <div class="col-md-6 col-lg-3 mb-3">
                             <label class="form-label mb-0"><i class="bi bi-arrow-bar-up me-2"></i>Von unten wegschneiden</label>
-                            <input type="number" name="bottom" class="form-control" placeholder="px">
+                            <input type="number" name="bottom" class="form-control" placeholder="px" aria-label="Von unten wegschneiden">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-lg btn-primary fw-semibold mt-2">
@@ -303,11 +310,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['webpConvert'])) {
                 <div class="text-primary-emphasis bg-primary-subtle border border-primary-subtle container shadow p-3 mb-3 image-preview-container">
                     <h3 class="fs-4">Hochgeladen:</h3>
                     <img class="image-preview img-fluid" src="" alt="Image Preview" style="display:none;">
-                    <div class="image-name">Keine Datei ausgewählt</div>
+                    <div class="image-name">Keine Datei ausgewählt.</div>
+                </div>
+                <div class="alert alert-danger container alert-danger-max-file-size visually-hidden">
+                    Die Größe des Uploads überschreitet die maximal zulässige Grenze von 50MB.
+                </div>
+                <div class="alert alert-warning container alert-danger-max-file-uploads visually-hidden">
+                    Bitte maximal 20 Dateien auswählen.
                 </div>
                 <div class="container border bg-body-tertiary shadow p-3">
                     <div class="mb-3">
-                        <label for="scaleImage" class="form-label">Bild zum Skalieren:</label>
+                        <label for="scaleImage" class="form-label">Bild zum Skalieren (maximal 50 MB):</label>
                         <div class="input-group">
                             <input type="file" class="form-control file-input" name="scaleImage" accept="image/jpeg, image/png, image/webp, image/gif, image/bmp" required>
                             <button type="button" title="Auswahl löschen" class="btn btn-danger clear-button"><i class="bi bi-trash3"></i></button>
@@ -346,11 +359,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['webpConvert'])) {
                 <div class="text-primary-emphasis bg-primary-subtle border border-primary-subtle container shadow p-3 mb-3 image-preview-container">
                     <h3 class="fs-4">Hochgeladen:</h3>
                     <img class="image-preview img-fluid" src="" alt="Image Preview" style="display:none;">
-                    <div class="image-name">Keine Datei(en) ausgewählt</div>
+                    <div class="image-name">Keine Datei(en) ausgewählt.</div>
+                </div>
+                <div class="alert alert-danger container alert-danger-max-file-size visually-hidden">
+                    Die Größe des Uploads überschreitet die maximal zulässige Grenze von 50MB.
+                </div>
+                <div class="alert alert-warning container alert-danger-max-file-uploads visually-hidden">
+                    Bitte maximal 20 Dateien auswählen.
                 </div>
                 <div class="container border bg-body-tertiary shadow p-3">
                     <div class="mb-3">
-                        <label for="webpConvert" class="form-label">Bild(er) zum Konvertieren:</label>
+                        <label for="webpConvert" class="form-label">Bild(er) zum Konvertieren (maximal 20 Dateien, maximal 50 MB):</label>
                         <div class="input-group">
                             <input type="file" class="form-control file-input" name="webpConvert[]" accept="image/jpeg, image/png, image/webp, image/gif, image/bmp" required multiple>
                             <button type="button" title="Auswahl löschen" class="btn btn-danger clear-button"><i class="bi bi-trash3"></i></button>
@@ -365,9 +384,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['webpConvert'])) {
         </section>
     </main>
 
-    <footer class="bg-body-secondary border py-3">
+    <footer class="text-white py-3">
         <div class="container d-flex justify-content-between align-items-center">
-            <p class="mb-0 fw-bold"><i class="bi bi-c-circle text-secondary me-1"></i>2025 <a href="https://andreas-lesovsky-web.dev/" class="text-body">Andreas Lesovsky</a></p>
+            <p class="mb-0 fw-bold"><i class="bi bi-c-circle text-secondary me-1"></i>2025 <a href="https://andreas-lesovsky-web.dev/" class="text-white">Andreas Lesovsky</a></p>
             <ul class="social-links fs-4 d-flex gap-3 mb-0">
                 <li>
                     <a href="https://www.linkedin.com/in/andreas-lesovsky-98a464306/" target="_blank" aria-label="LinkedIn Profil">

@@ -12040,4 +12040,9 @@ h4,
 h5,
 h6 {
   font-family: "Rajdhani", sans-serif;
+}
+
+footer {
+  border-top: 1px solid #22B8A0;
+  background-color: #000;
 }/*# sourceMappingURL=custom-bootstrap.css.map */

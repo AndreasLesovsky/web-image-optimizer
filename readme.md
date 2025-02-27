@@ -19,17 +19,17 @@ Eine Live-Demo der Anwendung ist unter folgendem Link erreichbar: [https://web-i
 
 ## Installation
 
-1. Klone das Repository:
+1. Repository klonen:
    ```bash
    git clone https://github.com/AndreasLesovsky/web-image-optimizer.git
    ```
 
-2. Installiere die PHP-Abhängigkeiten:
+2. PHP-Abhängigkeiten installieren:
    ```bash
    composer install
    ```
 
-3. Installiere die Node.js-Abhängigkeiten:
+3. Node.js-Abhängigkeiten installieren:
    ```bash
    npm install
    ```
@@ -67,4 +67,4 @@ Eine Live-Demo der Anwendung ist unter folgendem Link erreichbar: [https://web-i
 - Es wurde besonderer Wert auf semantisches HTML, hohe Kontraste und Beschriftungen aller Icons gelegt.
 
 ## Lizenz
-Dieses Projekt ist unter der [MIT Lizenz] lizenziert.
+Dieses Projekt ist unter der MIT Lizenz lizenziert.
