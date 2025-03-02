@@ -136,7 +136,7 @@ document.querySelectorAll(".file-input").forEach(input => {
 
             const sizeParagraph = document.createElement('p');
             sizeParagraph.classList.add('total-size-paragraph');
-            fileNameContainer.insertBefore(sizeParagraph, filesList); // Platziere den Paragraphen über der Liste
+            fileNameContainer.insertBefore(sizeParagraph, filesList);
 
             Array.from(files).forEach(file => {
                 totalSize += file.size;
