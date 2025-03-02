@@ -131,12 +131,12 @@ document.querySelectorAll(".file-input").forEach(input => {
         if (files.length > 1) {
             preview.style.display = "none";
 
-            const ul = document.createElement('ol');
-            fileNameContainer.appendChild(ul);
+            const filesList = document.createElement('ol');
+            fileNameContainer.appendChild(ol);
 
             const sizeParagraph = document.createElement('p');
             sizeParagraph.classList.add('total-size-paragraph');
-            fileNameContainer.insertBefore(sizeParagraph, ul); // Platziere den Paragraphen über der Liste
+            fileNameContainer.insertBefore(sizeParagraph, filesList); // Platziere den Paragraphen über der Liste
 
             Array.from(files).forEach(file => {
                 totalSize += file.size;
